@@ -1,26 +1,20 @@
 import java.util.Scanner;
 
 public class SchereSteinPapier {
-    public static void main(String[] args) {
-        String[] zeichen = {"", "Schere", "Stein", "Papier"};
+    static String[] zeichen = {"Schere", "Stein", "Papier"};
 
+    public static void main(String[] args) {
         for(String s : zeichen) {
             System.out.println(s);
         }
-        System.out.println();
 
-        System.out.println(randomCpuCharacter(zeichen));
-        System.out.println(checkWinner(zeichen));
-
+        checkWinner();
     }
 
-    public static String randomCpuCharacter(String[] zeichen) {
-        int zufall = (int) ((Math.random() * 3) + 1);
+    public static String randomCpuCharacter() {
+        int zufall = (int) ((Math.random() * 3));
 
-        if(zufall == 1) return "Schere";
-        else if(zufall == 2) return "Stein";
-        else if(zufall == 3) return "Papier";
-        return "";
+        return zeichen[zufall];
     }
 
     public static String readUserInput() {
@@ -29,49 +23,33 @@ public class SchereSteinPapier {
         return sc.next();
     }
 
-    public static String checkWinner(String[] zeichen) {
+    public static void checkWinner() {
+        String erg = randomCpuCharacter();
+        String input = readUserInput();
 
         //Unentschieden Situation
-        if(randomCpuCharacter(zeichen).equals("Schere")) {
-            if(readUserInput().equals("Schere")) {
-                System.out.println("-------");
-                return "♦♦♦♦Unentschieden♦♦♦♦";
+        if(erg.equals(input)) {
+            System.out.println("-------");
+            System.out.println(erg);
+            System.out.println("♦♦♦♦Unentschieden♦♦♦♦");
+        } else {
+
+            //CPU gewinnt
+            boolean cpuGewinnt = (erg.equals("Schere") && input.equals("Papier")) || (erg.equals("Papier") && input.equals("Stein") || (erg.equals("Stein") && input.equals("Schere")));
+            boolean playerGewinnt = (input.equals("Schere") && erg.equals("Papier")) || (input.equals("Papier") && erg.equals("Stein") || (input.equals("Stein") && erg.equals("Schere")));
+
+            if(cpuGewinnt) {
+                System.out.println(erg);
+                System.out.println("--------");
+                System.out.println("Verloren");
             }
-        } else if(randomCpuCharacter(zeichen).equals("Stein")) {
-            if(readUserInput().equals("Stein")) {
-                System.out.println("-------");
-                return "♦♦♦♦Unentschieden♦♦♦♦";
-            }
-        } else if(randomCpuCharacter(zeichen).equals("Papier")) {
-            if(readUserInput().equals("Papier")) {
-                System.out.println("-------");
-                return "♦♦♦♦Unentschieden♦♦♦♦";
+
+            //Player gewinnt
+            else if(playerGewinnt) {
+                System.out.println(erg);
+                System.out.println("--------");
+                System.out.println("Gewonnen");
             }
         }
-//        //CPU gewinnt
-//        else if (randomCpuCharacter.equals("Schere") && readUserInput.equals("Papier")) {
-//            System.out.println("-------");
-//            return "CPU hat gewonnen";
-//        } else if (randomCpuCharacter.equals("Papier") && readUserInput.equals("Stein")) {
-//            System.out.println("-------");
-//            return "CPU hat gewonnen";
-//        } else if (randomCpuCharacter.equals("Stein") && readUserInput.equals("Schere")) {
-//            System.out.println("-------");
-//            return "CPU hat gewonnen";
-//        }
-//
-//        //Spieler gewinnt
-//        else if (readUserInput.equals("Schere") && randomCpuCharacter.equals("Papier")) {
-//            System.out.println("-------");
-//            return "Spieler hat gewonnen";
-//        } else if (readUserInput.equals("Papier") && randomCpuCharacter.equals("Stein")) {
-//            System.out.println("-------");
-//            return "Spieler hat gewonnen";
-//        } else if (readUserInput.equals("Stein") && randomCpuCharacter.equals("Schere")) {
-//            System.out.println("-------");
-//            return "Spieler hat gewonnen";
-//        }
-
-        return "";
     }
 }

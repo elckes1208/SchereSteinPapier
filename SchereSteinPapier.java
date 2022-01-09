@@ -34,7 +34,7 @@ public class SchereSteinPapier {
             System.out.println("♦♦♦♦Unentschieden♦♦♦♦");
         } else {
 
-            //CPU gewinnt
+            //prüft Gewinner
             boolean cpuGewinnt = (erg.equals("Schere") && input.equals("Papier")) || (erg.equals("Papier") && input.equals("Stein") || (erg.equals("Stein") && input.equals("Schere")));
             boolean playerGewinnt = (input.equals("Schere") && erg.equals("Papier")) || (input.equals("Papier") && erg.equals("Stein") || (input.equals("Stein") && erg.equals("Schere")));
 
